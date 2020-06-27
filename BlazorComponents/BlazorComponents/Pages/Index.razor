@@ -1,0 +1,74 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<br />
+<br />
+
+<DataGridComponent TItem="Employee"
+                   DataItems="listEmployees"
+                   Columns="columnsDefinition"></DataGridComponent>
+
+@code  {
+
+    private List<Employee> listEmployees;
+    private List<ColumnDefinition> columnsDefinition;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Initilize();
+
+    }
+
+
+    private void Initilize()
+    {
+        if (columnsDefinition == null)
+        {
+            columnsDefinition = new List<ColumnDefinition>();
+            columnsDefinition.AddRange(
+                new ColumnDefinition[] {
+                    new ColumnDefinition { DataField = "Name", Caption="Name" },
+                    new ColumnDefinition { DataField = "Title", Caption="Title" },
+                    new ColumnDefinition { DataField = "Department", Caption="Department" },
+                    new ColumnDefinition { DataField = "EmploymentDate", Caption="Employment Date", Format = "yyyy/MM/dd", DataType = DataType.Date },
+                    new ColumnDefinition { DataField = "Salary", Caption="Annual Salary", DataType = DataType.Currency, Alignment = Alignment.Right, Format="c" },
+                    }
+            );
+        }
+
+        if (listEmployees == null)
+        {
+            listEmployees = new List<Employee>();
+            listEmployees.Add(new Employee
+            {
+                Name = "Frank Liu",
+                Title = "Developer",
+                Department = "Software Dev",
+                EmploymentDate = DateTime.Now,
+                Salary = 100000
+            });
+            listEmployees.Add(new Employee
+            {
+                Name = "Tim Smith",
+                Title = "DBA",
+                Department = "IT",
+                EmploymentDate = DateTime.Now,
+                Salary = 120000
+            });
+        }
+    }
+
+    class Employee
+    {
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Department { get; set; }
+        public DateTime EmploymentDate { get; set; }
+        public int Salary { get; set; }
+    }
+
+}

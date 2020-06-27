@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorComponents", "BlazorComponents\BlazorComponents.csproj", "{34EDE98E-5DBC-4D84-8988-560CC9744D8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGrid", "DataGrid\DataGrid.csproj", "{D37FB786-FCA9-448C-B8EB-71ACECBE4857}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34EDE98E-5DBC-4D84-8988-560CC9744D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EDE98E-5DBC-4D84-8988-560CC9744D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EDE98E-5DBC-4D84-8988-560CC9744D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34EDE98E-5DBC-4D84-8988-560CC9744D8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D37FB786-FCA9-448C-B8EB-71ACECBE4857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D37FB786-FCA9-448C-B8EB-71ACECBE4857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D37FB786-FCA9-448C-B8EB-71ACECBE4857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D37FB786-FCA9-448C-B8EB-71ACECBE4857}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BBF5C94C-34F1-4F56-967E-CE6487FC5DE9}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+﻿thead th.align-left {
+    text-align: left !important;
+}
+
+thead th.align-center {
+    text-align: center !important;
+}
+
+thead th.align-right {
+    text-align: right !important;
+}

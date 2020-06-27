@@ -1,0 +1,139 @@
+﻿@typeparam TItem
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <div class="notification is-danger">
+        <button class="delete" @onclick="@(() => { this.ErrorMessage = string.Empty; })"></button>
+        @ErrorMessage
+    </div>
+}
+else
+{
+    <table class="table is-fullwidth">
+        <thead>
+            <tr>
+                @if (Columns == null || Columns.Count <= 0)
+                {
+                    // Create the header using reflection
+                }
+                else
+                {
+                    // Create the header based on columns definition
+                    foreach (var column in Columns)
+                    {
+                        switch (column.Alignment)
+                        {
+                            case Alignment.Left:
+                                <th class="align-left">@column.Caption</th>
+                                break;
+                            case Alignment.Center:
+                                <th class="align-center">@column.Caption</th>
+                                break;
+                            case Alignment.Right:
+                                <th class="align-right">@column.Caption</th>
+                                break;
+                            case Alignment.NotSet:
+                            default:
+                                <th>@column.Caption</th>
+                                break;
+                        }
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in DataItems)
+            {
+                <tr>
+                    @foreach (var column in Columns)
+                    {
+                        @if (!string.IsNullOrWhiteSpace(column.Format) && column.DataType != DataType.NotSet)
+                        {
+                            string value = string.Empty;
+                            switch (column.DataType)
+                            {
+                                case DataType.Date:
+                                case DataType.DateTime:
+                                    value = DateTime.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()).ToString(column.Format);
+                                    break;
+                                case DataType.Boolean:
+                                    value = bool.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()).ToString();
+                                    break;
+                                case DataType.Currency:
+                                    value = Math.Round(double.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()), 2).ToString("c");
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            @if (column.Alignment != Alignment.NotSet)
+                            {
+                                <td align="@column.Alignment.ToString().ToLower()">@value</td>
+                            }
+                            else
+                            {
+                                <td>@value</td>
+                            }
+                        }
+                        else
+                        {
+                            @if (column.Alignment != Alignment.NotSet)
+                            {
+                                <td align="@column.Alignment.ToString().ToLower()">@typeof(TItem).GetProperty(column.DataField).GetValue(item)</td>
+                            }
+                            else
+                            {
+                                <td>@typeof(TItem).GetProperty(column.DataField).GetValue(item)</td>
+                            }
+
+
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code  {
+
+    [Parameter]
+    public List<TItem> DataItems { get; set; }
+
+    [Parameter]
+    public List<ColumnDefinition> Columns { get; set; }
+
+    private string ErrorMessage;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        ValidateDefinitions();
+
+        
+    }
+
+    private void ValidateDefinitions()
+    {
+        this.ErrorMessage = string.Empty;
+
+        if (DataItems == null || DataItems.Count <= 0)
+        {
+            ErrorMessage = "DataItems is not provided.";
+            return;
+        }
+
+        var itemProperties = typeof(TItem).GetProperties();
+        if (Columns != null && (itemProperties == null || itemProperties.Count() != Columns.Count))
+        {
+            ErrorMessage = "Column definitions don't match the provided data.";
+            return;
+        }
+
+        
+    }
+
+    
+
+}
