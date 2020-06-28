@@ -9,7 +9,12 @@ Welcome to your new app.
 
 <DataGridComponent TItem="Employee"
                    DataItems="listEmployees"
-                   Columns="columnsDefinition"></DataGridComponent>
+                   Columns="columnsDefinition"
+                   Paging="@(new PagingConfig
+                             {
+                                 Enabled = true,
+                                 PageSize = 3
+                   })"></DataGridComponent>
 
 @code  {
 
@@ -43,22 +48,99 @@ Welcome to your new app.
         if (listEmployees == null)
         {
             listEmployees = new List<Employee>();
-            listEmployees.Add(new Employee
-            {
-                Name = "Frank Liu",
-                Title = "Developer",
-                Department = "Software Dev",
-                EmploymentDate = DateTime.Now,
-                Salary = 100000
-            });
-            listEmployees.Add(new Employee
-            {
-                Name = "Tim Smith",
-                Title = "DBA",
-                Department = "IT",
-                EmploymentDate = DateTime.Now,
-                Salary = 120000
-            });
+            listEmployees.AddRange(
+                new Employee[]
+                {
+                    new Employee
+                    {
+                        Name = "Faye Mehai",
+                        Title = "Developer",
+                        Department = "Software Dev",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100000
+                    },
+                    new Employee
+                    {
+                        Name = "Tim Smith",
+                        Title = "DBA",
+                        Department = "IT",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100001
+                    }
+                    ,
+                    new Employee
+                    {
+                        Name = "John Doe",
+                        Title = "QA",
+                        Department = "QA",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100002
+                    }
+                    ,
+                    new Employee
+                    {
+                        Name = "Jane Doey",
+                        Title = "Developer",
+                        Department = "Software Dev",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100003
+                    }
+                    ,
+                    new Employee
+                    {
+                        Name = "Joe Bath",
+                        Title = "QA",
+                        Department = "QA",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100004
+                    }
+                    ,
+                    new Employee
+                    {
+                        Name = "Eric Anderson",
+                        Title = "Developer",
+                        Department = "Software Dev",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100005
+                    }
+                    ,
+                    new Employee
+                    {
+                        Name = "Lawrence Ebansa",
+                        Title = "DBA",
+                        Department = "IT",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100006
+                    }
+                    ,
+                    new Employee
+                    {
+                        Name = "Ken Sánchez",
+                        Title = "QA",
+                        Department = "QA",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100007
+                    }
+                    ,
+                    new Employee
+                    {
+                        Name = "Rob Walters",
+                        Title = "Developer",
+                        Department = "Software Dev",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100008
+                    }
+                    ,
+                    new Employee
+                    {
+                        Name = "Gail Erickson",
+                        Title = "DBA",
+                        Department = "IT",
+                        EmploymentDate = DateTime.Now,
+                        Salary = 100009
+                    }
+                }
+            );            
         }
     }
 
