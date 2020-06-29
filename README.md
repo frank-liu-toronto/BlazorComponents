@@ -9,10 +9,10 @@ I am starting with the DataGrid. So far I have implemented Column configurations
 - This video covers the Column Configurations, Formatting and Alignment.
 https://youtu.be/ZwsPoOuIyHU
 
-# My Channel
+# My Youtube Channel
 https://www.youtube.com/channel/frankliusoftware
 
-# Blazor Tutorial Playlist
+# Blazor Tutorial
 https://www.youtube.com/watch?v=cmFvIzQr1h4&list=PLgRlicSxjeMOwJyqendhcntDqEjCBncci
 
 # To subscribe, please click on this link
