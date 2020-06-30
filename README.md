@@ -10,11 +10,11 @@ I am starting with the DataGrid. So far I have implemented Column configurations
 https://youtu.be/ZwsPoOuIyHU
 
 # My Youtube Channel
-https://www.youtube.com/channel/frankliusoftware
+https://www.youtube.com/c/FrankLiuSoftware
 
 # Blazor Tutorial
 https://www.youtube.com/watch?v=cmFvIzQr1h4&list=PLgRlicSxjeMOwJyqendhcntDqEjCBncci
 
 # To subscribe, please click on this link
-https://www.youtube.com/channel/frankliusoftware?sub_confirmation=1
+https://www.youtube.com/c/frankliusoftware?sub_confirmation=1
 
