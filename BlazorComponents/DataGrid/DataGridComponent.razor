@@ -10,7 +10,7 @@
 else
 {
     <div>
-        <table class="table is-fullwidth">
+        <table class="table is-fullwidth is-bordered is-striped">
             <thead>
                 <tr>
                     @if (Columns == null || Columns.Count <= 0)
@@ -22,46 +22,11 @@ else
                         // Create the header based on columns definition
                         foreach (var column in Columns)
                         {
-                            switch (column.Alignment)
-                            {
-                                case Alignment.Left:
-                                    <th class="align-left" @onclick="@(()=> SortData(column))">
-                                        @column.Caption
-                                        @if (column.SortDirection != SortDirection.NotSet)
-                                        {
-                                            <span style="float:right" class="@($"arrow {column.SortDirection.ToString().ToLower()}")"></span>
-                                        }
-                                    </th>
-                                    break;
-                                case Alignment.Center:
-                                    <th class="align-center" @onclick="@(()=> SortData(column))">
-                                        @column.Caption
-                                        @if (column.SortDirection != SortDirection.NotSet)
-                                        {
-                                            <span style="float:right" class="@($"sort {column.SortDirection.ToString().ToLower()}")"></span>
-                                        }
-                                    </th>
-                                    break;
-                                case Alignment.Right:
-                                    <th class="align-right" @onclick="@(()=> SortData(column))">
-                                        @column.Caption
-                                        @if (column.SortDirection != SortDirection.NotSet)
-                                        {
-                                            <span style="float:right" class="@($"sort {column.SortDirection.ToString().ToLower()}")"></span>
-                                        }
-                                    </th>
-                                    break;
-                                case Alignment.NotSet:
-                                default:
-                                    <th @onclick="@(()=> SortData(column))">
-                                        @column.Caption
-                                        @if (column.SortDirection != SortDirection.NotSet)
-                                        {
-                                            <span style="float:right" class="@($"sort {column.SortDirection.ToString().ToLower()}")"></span>
-                                        }
-                                    </th>
-                                    break;
-                            }
+                            <th class="@(AlignmentClass(column))" @onclick="@(()=> SortData(column))">
+                                @column.Caption
+                                <span style="float:right" class="@(SortClass(column))"></span>
+                            </th>
+
                         }
                     }
                 </tr>
@@ -72,46 +37,13 @@ else
                     <tr>
                         @foreach (var column in Columns)
                         {
-                            @if (!string.IsNullOrWhiteSpace(column.Format) && column.DataType != DataType.NotSet)
+                            @if (column.Alignment != Alignment.NotSet)
                             {
-                                string value = string.Empty;
-                                switch (column.DataType)
-                                {
-                                    case DataType.Date:
-                                    case DataType.DateTime:
-                                        value = DateTime.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()).ToString(column.Format);
-                                        break;
-                                    case DataType.Boolean:
-                                        value = bool.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()).ToString();
-                                        break;
-                                    case DataType.Currency:
-                                        value = Math.Round(double.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()), 2).ToString("c");
-                                        break;
-                                    default:
-                                        break;
-                                }
-
-                                @if (column.Alignment != Alignment.NotSet)
-                                {
-                                    <td align="@column.Alignment.ToString().ToLower()">@value</td>
-                                }
-                                else
-                                {
-                                    <td>@value</td>
-                                }
+                                <td align="@column.Alignment.ToString().ToLower()">@FormatItemValue(item, column)</td>
                             }
                             else
                             {
-                                @if (column.Alignment != Alignment.NotSet)
-                                {
-                                    <td align="@column.Alignment.ToString().ToLower()">@typeof(TItem).GetProperty(column.DataField).GetValue(item)</td>
-                                }
-                                else
-                                {
-                                    <td>@typeof(TItem).GetProperty(column.DataField).GetValue(item)</td>
-                                }
-
-
+                                <td>@FormatItemValue(item, column)</td>
                             }
                         }
                     </tr>
@@ -129,7 +61,7 @@ else
                             @CustomPager
                         }
                         else
-                        { 
+                        {
                             <span style="font-size: 14px; cursor: pointer" @onclick="GoToPrevPage"><b>&lt; Previous</b></span>
                             <span style="font-size: 12px; color: gray">&nbsp;&nbsp;Page @CurrentPage of @Paging.MaxPageNumber(DataItems.Count)&nbsp;&nbsp;</span>
                             <span style="font-size: 14px; cursor: pointer" @onclick="GoToNextPage"><b>Next &gt;</b></span>
@@ -243,5 +175,71 @@ else
 
     public int MaxPageNumber { get => Paging.MaxPageNumber(DataItems.Count); }
 
+    #region Html Markup Cleanup
 
+    private string SortClass(ColumnDefinition column)
+    {
+        if (column.SortDirection != SortDirection.NotSet)
+        {
+            return $"sort {column.SortDirection.ToString().ToLower()}";
+        }
+
+        return "no-sort";
+    }
+
+    private string AlignmentClass(ColumnDefinition column)
+    {
+        string alignmentClass = string.Empty;
+
+        switch (column.Alignment)
+        {
+            case Alignment.Left:
+                alignmentClass = "align-left";
+                break;
+            case Alignment.Center:
+                alignmentClass = "align-center";
+                break;
+            case Alignment.Right:
+                alignmentClass = "align-right";
+                break;
+            case Alignment.NotSet:
+            default:
+                alignmentClass = string.Empty;
+                break;
+        }
+
+        return alignmentClass;
+    }
+
+    private string FormatItemValue(TItem item, ColumnDefinition column)
+    {
+        string value = string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(column.Format) && column.DataType != DataType.NotSet)
+        {
+            switch (column.DataType)
+            {
+                case DataType.Date:
+                case DataType.DateTime:
+                    value = DateTime.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()).ToString(column.Format);
+                    break;
+                case DataType.Boolean:
+                    value = bool.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()).ToString();
+                    break;
+                case DataType.Currency:
+                    value = Math.Round(double.Parse(typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString()), 2).ToString("c");
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            return typeof(TItem).GetProperty(column.DataField).GetValue(item).ToString();
+        }
+
+        return value;
+    }
+
+    #endregion
 }

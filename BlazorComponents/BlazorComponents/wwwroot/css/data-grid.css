@@ -5,6 +5,10 @@
     padding: 3px;    
 }
 
+.no-sort {
+    display: none;
+}
+
 .asc {
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
