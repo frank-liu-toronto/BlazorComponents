@@ -6,8 +6,10 @@ I wanted to created some UI components with Blazor that are similar to the ones 
 ## DataGrid
 I am starting with the DataGrid. So far I have implemented Column configurations, Formatting, Alignment, Sorting and Paging.
 
-- This video covers the Column Configurations, Formatting and Alignment.
+- This video covers the Column configurations, Formatting and Alignment.
 https://youtu.be/ZwsPoOuIyHU
+- This video covers the Paging configurations, predefined pager and custom pager implementations.
+https://youtu.be/97prHgKqHXc
 
 # My Youtube Channel
 https://www.youtube.com/c/FrankLiuSoftware
