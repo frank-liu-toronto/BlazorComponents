@@ -12,7 +12,7 @@ https://youtu.be/ZwsPoOuIyHU
 https://youtu.be/97prHgKqHXc
 
 # My Youtube Channel
-https://www.youtube.com/c/FrankLiuSoftware
+https://www.youtube.com/FrankLiuSoftware
 
 # Blazor Tutorial
 https://www.youtube.com/watch?v=cmFvIzQr1h4&list=PLgRlicSxjeMOwJyqendhcntDqEjCBncci
